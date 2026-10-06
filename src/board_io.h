@@ -17,6 +17,10 @@
 #error "Alias sw0 nao existe: crie um overlay de devicetree descrevendo o botao."
 #endif
 
+#define LED0_NODE DT_ALIAS(led0)
+
+#define BUTTON_NODE DT_ALIAS(sw0)
+
 /* Configura LED (saída, iniciando desligado) e botão (entrada), obtidos do
  * devicetree pelos aliases led0 e sw0. Retorna 0 ou errno negativo. */
 int io_init(void);

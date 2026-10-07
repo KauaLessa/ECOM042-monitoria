@@ -1,22 +1,21 @@
 #include "board_io.h"
 #include <stdbool.h>
 #include <zephyr/drivers/gpio.h>
-#include <zephyr/drivers/led.h>
 
-static const struct led_dt_spec led = LED_DT_SPEC_GET(LED0_NODE);
+static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED0_NODE, gpios);
 static const struct gpio_dt_spec btn = GPIO_DT_SPEC_GET(BUTTON_NODE, gpios);
 
 int io_init(void)
 {
 	int ret;
 
-	if (!led_is_ready_dt(&led)) {
+	if (!gpio_is_ready_dt(&led)) {
 		printk("Led is not ready\r\n");
 		return -ENODEV;
 	}
 
 	/* Led starts off */
-	ret = led_off_dt(&led);
+	ret = gpio_pin_configure_dt(&led, GPIO_OUTPUT_INACTIVE); 
 	if (ret < 0) {
 		printk("Could not configure led: %d\r\n", ret);
 		return ret;
@@ -41,7 +40,7 @@ int led_set(bool on)
 	int ret;
 
 	if (on) {
-		ret = led_on_dt(&led);
+		ret = gpio_pin_set_dt(&led, 1);
 
 		if (ret < 0) {
 			printk("Could not turn on led: %d\r\n", ret);
@@ -49,7 +48,7 @@ int led_set(bool on)
 		}
 		printk("LED: 1");
 	} else {
-		ret = led_off_dt(&led);
+		ret = gpio_pin_set_dt(&led, 0);
 
 		if (ret < 0) {
 			printk("Could not turn off led: %d\r\n", ret);

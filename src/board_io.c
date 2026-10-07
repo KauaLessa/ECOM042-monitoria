@@ -47,7 +47,7 @@ int led_set(bool on)
 			printk("Could not turn on led: %d\r\n", ret);
 			return ret;
 		}
-		printk("Led: ON");
+		printk("LED: 1");
 	} else {
 		ret = led_off_dt(&led);
 
@@ -55,7 +55,7 @@ int led_set(bool on)
 			printk("Could not turn off led: %d\r\n", ret);
 			return ret;
 		}
-		printk("Led: OFF");
+		printk("LED: 0");
 	}
 
 	return 0;

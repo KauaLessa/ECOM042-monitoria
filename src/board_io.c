@@ -15,7 +15,7 @@ int io_init(void)
 	}
 
 	/* Led starts off */
-	ret = gpio_pin_configure_dt(&led, GPIO_OUTPUT_INACTIVE); 
+	ret = gpio_pin_configure_dt(&led, GPIO_OUTPUT_INACTIVE);
 	if (ret < 0) {
 		printk("Could not configure led: %d\r\n", ret);
 		return ret;
